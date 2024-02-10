@@ -8,6 +8,10 @@ namespace ConsoleAppFavoriteSongsSecondVersion.Context
 {
     public class Members : Identifier
     {
+        public Members(string memberName)
+            : base(memberName)
+        {
 
+        }
     }
 }

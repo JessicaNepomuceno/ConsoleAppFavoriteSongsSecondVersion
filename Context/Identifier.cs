@@ -8,12 +8,13 @@ namespace ConsoleAppFavoriteSongsSecondVersion.Context
 {
     public abstract class Identifier
     {
-        public Identifier()
+        public Identifier(string name)
         {
             Id = Guid.NewGuid();
+            Name = name;
         }
 
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        protected Guid Id { get; private set; }
+        protected string Name { get; private set; }
     }
 }

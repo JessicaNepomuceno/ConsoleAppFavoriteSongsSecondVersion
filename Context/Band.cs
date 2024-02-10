@@ -8,11 +8,12 @@ namespace ConsoleAppFavoriteSongsSecondVersion.Context
 {
     public class Band : Identifier
     {
-        public Band()
-        {
-            Members = new List<Members>();
+        public Band(string bandName, List<Members> membersName)
+            : base(bandName)
+        {            
+            Members = membersName;
         }
 
-        public IList<Members> Members { get; set; }
+        public IList<Members> Members { get; private set; }
     }
 }
