@@ -9,9 +9,14 @@ namespace ConsoleAppFavoriteSongsSecondVersion.Context
     public class Members : Identifier
     {
         public Members(string memberName)
-            : base(memberName)
-        {
+            : base(memberName) { }       
 
+        public string MemberName() { return Name; }
+        public Guid MenberId() { return Id; }
+
+        public override void ChangeName(string newName)
+        {
+            base.ChangeName(newName);
         }
     }
 }

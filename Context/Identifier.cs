@@ -16,5 +16,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion.Context
 
         protected Guid Id { get; private set; }
         protected string Name { get; private set; }
+
+        public virtual void ChangeName(string newName) { Name = newName; }
     }
 }

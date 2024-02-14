@@ -10,10 +10,18 @@ namespace ConsoleAppFavoriteSongsSecondVersion.Context
     {
         public Band(string bandName, List<Members> membersName)
             : base(bandName)
-        {            
+        {
             Members = membersName;
         }
 
         public IList<Members> Members { get; private set; }
+
+        public string BandName() {return Name;}
+        public string BandId() { return Id.ToString(); }
+
+        public override void ChangeName(string newName)
+        {
+            base.ChangeName(newName);
+        }
     }
 }
