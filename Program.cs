@@ -17,6 +17,11 @@ namespace ConsoleAppFavoriteSongsSecondVersion
             
             var teste = crudContext.CreateFavoriteSong(favoriteSongs);
             Thread.Sleep(3000);
+            var teste2 = crudContext.CreateFavoriteSong(favoriteSongs);
+            Console.WriteLine("");
+            Thread.Sleep(3000);
+            crudContext.ListFavoriteSong(favoriteSongs);
+            Thread.Sleep(3000);
 
             //while (showMenu)
             //{

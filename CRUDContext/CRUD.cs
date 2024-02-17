@@ -57,31 +57,30 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
             return SetAgree(repeatAgree, concluded, favoriteSongs, nameArtistBand, nameMusic, musicNote, genre, members);
         }
 
-        ///// <summary>
-        ///// Function - List a favorite song
-        ///// </summary>
-        //public void ListFavoriteSong(List<Music> favoriteSongs)
-        //{
-        //    if (artist != null && artist.Any())
-        //    {
-        //        Console.WriteLine("Your favorite songs registered are listed below.");
-        //        Console.WriteLine("");
+        /// <summary>
+        /// Function - List a favorite song
+        /// </summary>
+        public void ListFavoriteSong(List<Music> favoriteSongs)
+        {
+            if (favoriteSongs.Any())
+            {
+                Console.WriteLine("Your favorite songs registered are listed below.");
+                Console.WriteLine("");
 
-        //        foreach (Artist item in artist)
-        //        {
-        //            Console.WriteLine($"The name of the artist: {item.Name} - The name of the song: {item.NameSong} - The note (From 0 to 10): {item.Note}");
-        //            Console.WriteLine("");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("You dont have favorite songs registered. Please, return to menu and select the first option to register a song!");
-        //        Console.WriteLine("");
-        //    }
+                foreach (var item in favoriteSongs)
+                    ShowInformationInputSong(item.Band.BandName(), item.MusicName(), item.MusicNote, (int)item.Genre, item.Band.Members.ToList());
 
-        //    Console.WriteLine("Press Enter to Return to menu.");
-        //    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-        //}
+                Console.WriteLine("");
+            }
+            else
+            {
+                Console.WriteLine("You dont have favorite songs registered. Please, return to menu and select the first option to register a song!");
+                Console.WriteLine("");
+            }
+
+            Console.WriteLine("Press Enter to Return to menu.");
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+        }
 
         ///// <summary>
         ///// Function - Update a favorite song
@@ -275,7 +274,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
         //    return concluded;
         //}
 
-        
+
 
     }
 }
