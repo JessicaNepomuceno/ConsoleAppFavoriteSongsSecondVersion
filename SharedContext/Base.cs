@@ -48,8 +48,8 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
             Console.WriteLine($"The music genre: {(EGenre)genre}");
             Console.WriteLine($"The members name: {string.Join(" / ", members.Select(x => x.MemberName()))}");
             Console.WriteLine("");
-        }
-        public bool SetAgree(bool repeatAgree, bool concluded, Music updateSong)
+        }                
+        public bool SetAgree(bool repeatAgree, bool concluded, Music song)
         {
             while (repeatAgree)
             {
@@ -60,20 +60,55 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
                 {
                     case "Y":
                         var changeSong = SetFavoriteSong();
-                        updateSong.ChangeName(changeSong.MusicName());
-                        updateSong.ChangeGenre((int)changeSong.Genre);
-                        updateSong.ChangeMusicNote(changeSong.MusicNote);
-                        updateSong.Band.ChangeName(changeSong.Band.BandName());
+                        song.ChangeName(changeSong.MusicName());
+                        song.ChangeGenre((int)changeSong.Genre);
+                        song.ChangeMusicNote(changeSong.MusicNote);
+                        song.Band.ChangeName(changeSong.Band.BandName());
 
-                        updateSong.Band.Members.Clear();
+                        song.Band.Members.Clear();
                         foreach (var item in changeSong.Band.Members)
-                            updateSong.Band.Members.Add(item);
+                            song.Band.Members.Add(item);
 
                         concluded = true;
                         repeatAgree = false;
+                        Console.WriteLine("Your favorite song has been UPDATED! Returning to the menu...");
                         break;
                     case "N":
-                        Console.WriteLine("Your favorite song has not been UPDATE!");
+                        Console.WriteLine("Your favorite song has not been UPDATED!");
+                        concluded = true;
+                        repeatAgree = false;
+                        break;
+                    default:
+                        if (!Notifications.Any(x => x.Property.Contains("agree")))
+                            AddNotification(new Notification("agree", "WARNING! --> YOU TYPE A INVALID OPTION, PLEASE TRY IT AGAIN."));
+                        Console.WriteLine(ShowNotifications());
+                        // Delay that permit the user to read the warning message
+                        Thread.Sleep(3000);
+                        repeatAgree = true;
+                        Console.WriteLine("");
+                        break;
+                }
+            }
+
+            return concluded;
+        }
+        public bool SetAgree(bool repeatAgree, bool concluded, Music song, List<Music> favoriteSongs)
+        {
+            while (repeatAgree)
+            {
+                Console.Write("Do you agree? Type Y for yes or N for no: ");
+                var agree = Console.ReadLine()!.ToUpper();
+
+                switch (agree)
+                {
+                    case "Y":
+                        favoriteSongs.Remove(song);                        
+                        concluded = true;
+                        repeatAgree = false;
+                        Console.WriteLine("Your favorite song has been DELETED! Returning to the menu...");
+                        break;
+                    case "N":
+                        Console.WriteLine("Your favorite song has not been DELETED!");
                         concluded = true;
                         repeatAgree = false;
                         break;
@@ -169,5 +204,20 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
 
             return new Music(nameMusic, nameArtistBand, members, genre, musicNote);
         }
+        public static Music ChoiceFavoriteSong(List<Music> favoriteSongs, bool isUpdate)
+        {            
+            Console.WriteLine($"To {(isUpdate ? "UPDATE" : "DELETE")} a favorite song, enter the information requested below.");
+
+            Console.WriteLine("");
+            Console.Write($"Type the favorite song number that you want to {(isUpdate ? "UPDATE" : "DELETE")}: ");
+            var numberFavoriteSong = (int.TryParse(Console.ReadLine()!, out int num) ? num : 0);
+
+            Console.WriteLine("");
+            Console.WriteLine("This is the favorite song you entered:");
+            Console.WriteLine("");
+            
+            return favoriteSongs.Where(x => x.NumIndex == numberFavoriteSong).Select(y => y).FirstOrDefault();
+        }
+
     }
 }
