@@ -218,6 +218,26 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
             
             return favoriteSongs.Where(x => x.NumIndex == numberFavoriteSong).Select(y => y).FirstOrDefault();
         }
+        public string ShowMenuOptions()
+        {
+            string numberOptionsMenu;
+
+            Console.WriteLine("");
+            Console.WriteLine("OPTIONS MENU");
+            Console.WriteLine("");
+            //CRUD (Create, Read, Update, Delete)
+            Console.WriteLine("Type 1 - Register a favorite song.");
+            Console.WriteLine("Type 2 - List your favorite songs.");
+            Console.WriteLine("Type 3 - Update a favorite song.");
+            Console.WriteLine("Type 4 - Delete a favorite song.");
+            Console.WriteLine("Type 0 - Exit.");
+            Console.WriteLine("");
+            Console.Write("Type the number to select the option: ");
+            numberOptionsMenu = Console.ReadLine()!;
+            Console.WriteLine("");
+
+            return numberOptionsMenu;
+        }
 
     }
 }
