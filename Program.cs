@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleAppFavoriteSongsSecondVersion.ContentContext;
+using ConsoleAppFavoriteSongsSecondVersion.CRUDContext;
 
 namespace ConsoleAppFavoriteSongsSecondVersion
 {
@@ -11,28 +12,69 @@ namespace ConsoleAppFavoriteSongsSecondVersion
     {
         static void Main(string[] args)
         {
-            var membrosBanda = new List<Members>();
-            membrosBanda.Add(new Members("Menbro01"));
-            membrosBanda.Add(new Members("Menbro02"));
-            membrosBanda.Add(new Members("Menbro03"));
+            var favoriteSongs = new List<Music>();
+            var crudContext = new CRUD();
 
-            var musicaPrimeira = new Music("NomeDaMusica", "NomeDaBanda", membrosBanda, 1, 10);
+            Thread.Sleep(3000);
+            var teste = crudContext.CreateFavoriteSong(favoriteSongs);
+            Thread.Sleep(3000);
 
-            var band = new Band("NomeDaBanda", membrosBanda);
-
-            Console.WriteLine($"Nome da banda 02: Id: {band.BandId()} - Nome: {band.BandName()}");
-            Console.WriteLine($"{string.Join(" \n", band.Members.Select(x => $" Membros - Id: {x.MenberId()} - Nome: {x.MemberName()}"))}");
-
-            Console.WriteLine($"Nome da banda: {musicaPrimeira.Band.BandName()}");
-            Console.WriteLine($"Nome da música: {musicaPrimeira.MusicName()}");
-            Console.WriteLine($"Id da música: {musicaPrimeira.MusicId()}");
-
-            foreach (var membro in membrosBanda)
-            {                
-                Console.WriteLine($"Menbro da banda: {membro.MemberName()}");                
-            }
-
-            Console.WriteLine($"Nota da banda: {musicaPrimeira.MusicNote} e Genero da música: {musicaPrimeira.Genre}");    
+            //while (showMenu)
+            //{
+            //    ShowLogo();
+            //    ShowMessagesWelcome();
+            //    string selectedOptionsMenu = ShowMenuOptions();
+            //    switch (selectedOptionsMenu)
+            //    {
+            //        case "1":
+            //            Console.WriteLine($"You selected the option {selectedOptionsMenu}!");
+            //            Thread.Sleep(3000);
+            //            Console.Clear();
+            //            ShowLogo();
+            //            showMenu = CreateFavoriteSong();
+            //            Thread.Sleep(4000);
+            //            Console.Clear();
+            //            break;
+            //        case "2":
+            //            Console.WriteLine($"You selected the option {selectedOptionsMenu}!");
+            //            Thread.Sleep(3000);
+            //            Console.Clear();
+            //            ShowLogo();
+            //            ListFavoriteSong();
+            //            Console.Clear();
+            //            showMenu = true;
+            //            break;
+            //        case "3":
+            //            Console.WriteLine($"You selected the option {selectedOptionsMenu}!");
+            //            Thread.Sleep(3000);
+            //            Console.Clear();
+            //            ShowLogo();
+            //            showMenu = UpdateFavoriteSong();
+            //            Console.Clear();
+            //            break;
+            //        case "4":
+            //            Console.WriteLine($"You selected the option {selectedOptionsMenu}!");
+            //            Thread.Sleep(3000);
+            //            Console.Clear();
+            //            ShowLogo();
+            //            showMenu = DeleteFavoriteSong();
+            //            Console.Clear();
+            //            break;
+            //        case "0":
+            //            Console.WriteLine("THE PROGRAM WILL BE EXIT, WAIT...");
+            //            // Delay that permit the user to read the exit message
+            //            Thread.Sleep(3000);
+            //            showMenu = false;
+            //            break;
+            //        default:
+            //            Console.WriteLine("WARNING! --> YOU TYPE A INVALID OPTION, PLEASE TRY IT AGAIN.");
+            //            // Delay that permit the user to read the warning message
+            //            Thread.Sleep(3000);
+            //            Console.Clear();
+            //            showMenu = true;
+            //            break;
+            //    }
+            //}
         }
     }
 }

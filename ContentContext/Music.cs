@@ -9,7 +9,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion.ContentContext
 {
     public class Music : Identifier
     {
-        public Music(string musicName, string bandName, List<Members> membersName, int gender, short musicNote) : base(musicName)
+        public Music(string musicName, string bandName, List<Members> membersName, int gender, int musicNote) : base(musicName)
         {            
             Band = new Band(bandName, membersName);
             Genre = (EGenre)gender;
@@ -18,7 +18,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion.ContentContext
 
         public Band Band { get; private set; }
         public EGenre Genre { get; private set; }
-        public short MusicNote { get; private set; }
+        public int MusicNote { get; private set; }
 
         public string MusicName() { return Name; }
         public string MusicId() { return Id.ToString(); }

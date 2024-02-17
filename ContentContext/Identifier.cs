@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleAppFavoriteSongsSecondVersion.NotificationContext;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppFavoriteSongsSecondVersion.ContentContext
 {
-    public abstract class Identifier
+    public abstract class Identifier : Notifiable
     {
         public Identifier(string name)
         {
