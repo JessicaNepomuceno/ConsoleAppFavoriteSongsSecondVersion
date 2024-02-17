@@ -8,13 +8,13 @@ using ConsoleAppFavoriteSongsSecondVersion.CRUDContext;
 
 namespace ConsoleAppFavoriteSongsSecondVersion
 {
-    class Program 
+    class Program
     {
         static void Main(string[] args)
         {
             var favoriteSongs = new List<Music>();
             var crudContext = new CRUD();
-            
+
             var teste = crudContext.CreateFavoriteSong(favoriteSongs);
             Thread.Sleep(3000);
             var teste2 = crudContext.CreateFavoriteSong(favoriteSongs);
@@ -45,6 +45,8 @@ namespace ConsoleAppFavoriteSongsSecondVersion
             //            Console.Clear();
             //            ShowLogo();
             //            ListFavoriteSong();
+            //            Console.WriteLine("Press Enter to Return to menu.");
+            //            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
             //            Console.Clear();
             //            showMenu = true;
             //            break;

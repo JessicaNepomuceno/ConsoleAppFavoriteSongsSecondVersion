@@ -20,41 +20,11 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
         public bool CreateFavoriteSong(List<Music> favoriteSongs)
         {
             bool concluded = false;
-
-            Console.WriteLine("To register a favorite song, enter the information requested below.");
-            Console.WriteLine("");
-            Console.Write("Type the name of the artist/band: ");
-            var nameArtistBand = Console.ReadLine()!;
-            
-            Console.WriteLine("");
-            Console.Write("Type the name of the music: ");
-            var nameMusic = Console.ReadLine()!;
-            
-            Console.WriteLine("");
-            Console.Write("Type the note (From 0 to 10) of how much you like this music: ");
-            var musicNote = (int.TryParse(Console.ReadLine()!, out int numNote) ? numNote : 0);
-            
-            Console.WriteLine("");
-            Console.Write("Type the number of music genre: ");
-            Console.WriteLine("");
-            Console.Write("\n"+ ShowGenre());
-            Console.WriteLine("");
-            Console.Write("number: ");            
-            var genre = (int.TryParse(Console.ReadLine()!, out int numGenre) ? numGenre : 0);
-            
-            Console.WriteLine("");
-            Console.Write("Type the name of members: ");
-            Console.WriteLine("");
-            var members = SetMembers();
-
-            Console.WriteLine("");
-            Console.WriteLine("This is the information you entered:");
-            Console.WriteLine("");
-            ShowInformationInputSong(nameArtistBand, nameMusic, musicNote, genre, members);
-
             bool repeatAgree = true;
 
-            return SetAgree(repeatAgree, concluded, favoriteSongs, nameArtistBand, nameMusic, musicNote, genre, members);
+            var favoriteSong = SetFavoriteSong();           
+
+            return SetAgree(repeatAgree, concluded, favoriteSongs, favoriteSong.Band.BandName(), favoriteSong.MusicName(), favoriteSong.MusicNote, (int)favoriteSong.Genre, favoriteSong.Band.Members.ToList());
         }
 
         /// <summary>
@@ -64,11 +34,19 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
         {
             if (favoriteSongs.Any())
             {
+                var contador = 1;
                 Console.WriteLine("Your favorite songs registered are listed below.");
                 Console.WriteLine("");
 
                 foreach (var item in favoriteSongs)
+                {
+                    Console.WriteLine("----------------------------------------------------------");
+                    Console.WriteLine($"Favorite song number: {contador}");
+                    item.NumIndex = contador;
+                    Console.WriteLine("");
                     ShowInformationInputSong(item.Band.BandName(), item.MusicName(), item.MusicNote, (int)item.Genre, item.Band.Members.ToList());
+                    contador++;
+                }                  
 
                 Console.WriteLine("");
             }
@@ -76,112 +54,47 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
             {
                 Console.WriteLine("You dont have favorite songs registered. Please, return to menu and select the first option to register a song!");
                 Console.WriteLine("");
-            }
-
-            Console.WriteLine("Press Enter to Return to menu.");
-            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+            }                        
         }
 
-        ///// <summary>
-        ///// Function - Update a favorite song
-        ///// </summary>
-        //public bool UpdateFavoriteSong(List<Music> favoriteSongs)
-        //{
-        //    bool concluded = false;
-        //    if (artist != null && artist.Any())
-        //    {
-        //        Console.WriteLine("To UPDATE a favorite song, enter the information requested below.");
-        //        Console.WriteLine("");
+        /// <summary>
+        /// Function - Update a favorite song
+        /// </summary>
+        public bool UpdateFavoriteSong(List<Music> favoriteSongs)
+        {
+            bool repeatAgree = true;
+            bool concluded = false;
 
-        //        Console.Write("Type the NAME OF THE ARTIST that you want to UPDATE: ");
-        //        var name = Console.ReadLine()!;
-        //        Console.WriteLine("");
+            if (favoriteSongs.Any())
+            {
+                ListFavoriteSong(favoriteSongs);
+                Console.WriteLine("To UPDATE a favorite song, enter the information requested below.");
 
-        //        Console.Write("Type the NAME OF THE SONG that you want to UPDATE: ");
-        //        var nameSong = Console.ReadLine()!;
-        //        Console.WriteLine("");
+                Console.WriteLine("");
+                Console.Write("Type the favorite song number that you want to UPDATE: ");                
+                var numberFavoriteSong = (int.TryParse(Console.ReadLine()!, out int num) ? num : 0);
 
-        //        Console.WriteLine("This is the information you entered:");
-        //        Console.WriteLine("");
+                Console.WriteLine("");  
+                Console.WriteLine("This is the favorite song you entered:");
+                Console.WriteLine("");
 
-        //        Console.WriteLine($"The name of the artist: {name}");
-        //        Console.WriteLine($"The name of the song: {nameSong}");
-        //        Console.WriteLine("");
+                var updateSong = favoriteSongs.Where(x => x.NumIndex == numberFavoriteSong).Select(y => y).FirstOrDefault();
+                ShowInformationInputSong(updateSong.Band.BandName(), updateSong.MusicName(), updateSong.MusicNote, (int)updateSong.Genre, updateSong.Band.Members.ToList());
+                concluded = SetAgree(repeatAgree, concluded, updateSong);
+            }
+            else
+            {
+                Console.WriteLine("You dont have favorite songs registered.");
+                Console.WriteLine("Please, return to menu and select the first option to register a song!");
+                concluded = true;
+            }
 
-        //        bool repeatAgree = true;
-        //        while (repeatAgree)
-        //        {
-        //            Console.Write("Do you agree? Type Y for yes or N for no: ");
-        //            var agree = Console.ReadLine()!.ToUpper();
+            Console.WriteLine("");
+            Console.WriteLine("Press Enter to Return to menu.");
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
 
-        //            switch (agree)
-        //            {
-        //                case "Y":
-        //                    Console.WriteLine("");
-        //                    Console.WriteLine("To UPDATE, enter the information requested below.");
-        //                    Console.WriteLine("");
-
-        //                    Console.Write("Type the NEW name of the artist: ");
-        //                    var newName = Console.ReadLine()!;
-        //                    Console.WriteLine("");
-
-        //                    Console.Write("Type the NEW name of the song: ");
-        //                    var newNameSong = Console.ReadLine()!;
-        //                    Console.WriteLine("");
-
-        //                    Console.Write("Type the NEW note (From 0 to 10): ");
-        //                    var newNote = (decimal.TryParse(Console.ReadLine()!, out decimal number) ? number : 0);
-        //                    Console.WriteLine("");
-
-        //                    var searchArtist = artist.FirstOrDefault(x => x.Name == name && x.NameSong == nameSong);
-        //                    if (searchArtist != null)
-        //                    {
-        //                        searchArtist.Name = newName;
-        //                        searchArtist.NameSong = newNameSong;
-        //                        searchArtist.Note = newNote;
-
-        //                        Console.WriteLine("Your favorite song has been UPDATE!");
-        //                        Console.WriteLine("");
-
-        //                        Console.WriteLine($"The NEW name of the artist: {searchArtist.Name} - The NEW name of the song: {searchArtist.NameSong} - The NEW note (From 0 to 10): {searchArtist.Note}");
-        //                    }
-        //                    else
-        //                    {
-        //                        Console.WriteLine("Your favorite song has not been UPDATED.");
-        //                        Console.WriteLine("Because the name of the artist or the name of the song was not found. Try it again!");
-
-        //                    }
-        //                    concluded = true;
-        //                    repeatAgree = false;
-        //                    break;
-        //                case "N":
-        //                    Console.WriteLine("Your favorite song has not been UPDATE!");
-        //                    concluded = true;
-        //                    repeatAgree = false;
-        //                    break;
-        //                default:
-        //                    Console.WriteLine("WARNING! --> YOU TYPE A INVALID OPTION, PLEASE TRY IT AGAIN.");
-        //                    // Delay that permit the user to read the warning message
-        //                    Thread.Sleep(3000);
-        //                    repeatAgree = true;
-        //                    Console.WriteLine("");
-        //                    break;
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("You dont have favorite songs registered.");
-        //        Console.WriteLine("Please, return to menu and select the first option to register a song!");
-        //        concluded = true;
-        //    }
-
-        //    Console.WriteLine("");
-        //    Console.WriteLine("Press Enter to Return to menu.");
-        //    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-
-        //    return concluded;
-        //}
+            return concluded;
+        }
 
         ///// <summary>
         ///// Function - Delete a favorite song

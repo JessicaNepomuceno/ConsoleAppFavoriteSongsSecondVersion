@@ -19,11 +19,12 @@ namespace ConsoleAppFavoriteSongsSecondVersion.ContentContext
         public Band Band { get; private set; }
         public EGenre Genre { get; private set; }
         public int MusicNote { get; private set; }
+        public int NumIndex { get; set; }   
 
         public string MusicName() { return Name; }
         public string MusicId() { return Id.ToString(); }
         public override void ChangeName(string newName) { base.ChangeName(newName); }
         public void ChangeGenre(int newGenre) { this.Genre = (EGenre)newGenre; }
-        public void ChangeMusicNote(short newMusicNote) { this.MusicNote = newMusicNote; }        
+        public void ChangeMusicNote(int newMusicNote) { this.MusicNote = newMusicNote; }        
     }
 }
