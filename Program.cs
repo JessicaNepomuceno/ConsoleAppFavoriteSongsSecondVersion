@@ -14,8 +14,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion
         {
             var favoriteSongs = new List<Music>();
             var crudContext = new CRUD();
-
-            Thread.Sleep(3000);
+            
             var teste = crudContext.CreateFavoriteSong(favoriteSongs);
             Thread.Sleep(3000);
 

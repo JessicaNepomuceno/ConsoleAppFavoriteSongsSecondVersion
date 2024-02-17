@@ -1,6 +1,7 @@
 ﻿using ConsoleAppFavoriteSongsSecondVersion.ContentContext;
 using ConsoleAppFavoriteSongsSecondVersion.Context.Enums;
 using ConsoleAppFavoriteSongsSecondVersion.NotificationContext;
+using ConsoleAppFavoriteSongsSecondVersion.SharedContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
 {
-    public class CRUD : Notifiable
+    public class CRUD : Base
     {
         public CRUD() { }
 
@@ -22,65 +23,38 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
 
             Console.WriteLine("To register a favorite song, enter the information requested below.");
             Console.WriteLine("");
-
             Console.Write("Type the name of the artist/band: ");
             var nameArtistBand = Console.ReadLine()!;
+            
             Console.WriteLine("");
-
             Console.Write("Type the name of the music: ");
             var nameMusic = Console.ReadLine()!;
+            
             Console.WriteLine("");
-
             Console.Write("Type the note (From 0 to 10) of how much you like this music: ");
             var musicNote = (int.TryParse(Console.ReadLine()!, out int numNote) ? numNote : 0);
+            
             Console.WriteLine("");
-
             Console.Write("Type the number of music genre: ");
+            Console.WriteLine("");
             Console.Write("\n"+ ShowGenre());
             Console.WriteLine("");
+            Console.Write("number: ");            
             var genre = (int.TryParse(Console.ReadLine()!, out int numGenre) ? numGenre : 0);
+            
             Console.WriteLine("");
+            Console.Write("Type the name of members: ");
+            Console.WriteLine("");
+            var members = SetMembers();
 
+            Console.WriteLine("");
             Console.WriteLine("This is the information you entered:");
             Console.WriteLine("");
-
-            Console.WriteLine($"The name of the artist: {nameArtistBand}");
-            Console.WriteLine($"The name of the song: {nameMusic}");
-            Console.WriteLine($"The note (From 0 to 10): {musicNote}");
-            Console.WriteLine($"The music genre: {(EGenre)genre}");
-            Console.WriteLine("");
+            ShowInformationInputSong(nameArtistBand, nameMusic, musicNote, genre, members);
 
             bool repeatAgree = true;
-            while (repeatAgree)
-            {
-                Console.Write("Do you agree? Type Y for yes or N for no: ");
-                var agree = Console.ReadLine()!.ToUpper();
 
-                switch (agree)
-                {
-                    case "Y":
-                        Console.WriteLine("");
-                        Console.WriteLine("The information has been saved! Returning to the menu...");
-                        favoriteSongs.Add(new Music(nameMusic, nameArtistBand, new List<Members>(), genre, musicNote));
-                        concluded = true;
-                        repeatAgree = false;
-                        break;
-                    case "N":
-                        Console.WriteLine("The information has not been saved! Returning to the menu...");
-                        concluded = true;
-                        repeatAgree = false;
-                        break;
-                    default:
-                        Console.WriteLine("WARNING! --> YOU TYPE A INVALID OPTION, PLEASE TRY IT AGAIN.");
-                        // Delay that permit the user to read the warning message
-                        Thread.Sleep(3000);
-                        repeatAgree = true;
-                        Console.WriteLine("");
-                        break;
-                }
-            }
-
-            return concluded;
+            return SetAgree(repeatAgree, concluded, favoriteSongs, nameArtistBand, nameMusic, musicNote, genre, members);
         }
 
         ///// <summary>
@@ -301,15 +275,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
         //    return concluded;
         //}
 
-        public static string ShowGenre()
-        {
-            string genreOptions = string.Empty;
-            foreach (var genre in Enum.GetValues(typeof(EGenre)))
-            {
-                genreOptions += $"{(int)genre} - {genre} \n";
-            }
-            return genreOptions;
-        }
+        
 
     }
 }

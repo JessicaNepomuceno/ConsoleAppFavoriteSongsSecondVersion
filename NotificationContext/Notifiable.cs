@@ -19,5 +19,6 @@ namespace ConsoleAppFavoriteSongsSecondVersion.NotificationContext
         public void AddNotification(Notification notification) { Notifications.Add(notification); }
 
         public void AddRangeNotifications(IEnumerable<Notification> notifications) { Notifications.AddRange(notifications); }
+        public string ShowNotifications() { return string.Join("\n", Notifications.Select(x => x.Message)); }
     }
 }
