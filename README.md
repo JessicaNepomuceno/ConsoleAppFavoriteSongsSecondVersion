@@ -1,4 +1,45 @@
-Nome do projeto:<br />
+# [English] Project Name:<br />
+--> Favorite Songs 2nd version<br />
+
+What is it:<br />
+--> A console application<br />
+
+Motivation:<br />
+--> Project created for practice from the Course:<br />
+------> Career: .NET Developer Fundamentals - Object-Oriented Fundamentals, on the [Balta.io] platform.<br />
+
+Description:<br />
+--> The central idea of the application is to simulate a music manager. It allows you to register songs (providing the artist's name, song name, and rating), list, update, and delete the registered songs at runtime.<br />
+
+Content (Object-Oriented Fundamentals):<br />
+--> Learn the OOP (Object-Oriented Programming) paradigm<br />
+--> Learn to apply object-oriented concepts using C#<br />
+--> Learn about Classes, Objects, and Interfaces<br />
+--> Learn about Abstraction<br />
+--> Learn about Encapsulation, Inheritance, and Polymorphism<br />
+--> Learn about complex types<br />
+--> Learn about properties and methods<br />
+--> Learn access modifiers<br />
+--> Learn about Using and Dispose in C#<br />
+--> Learn about static classes and sealed classes<br />
+--> Learn partial classes in C# (partial class)<br />
+--> Learn to create concrete classes and abstract classes<br />
+--> Convert types through upcasting and downcasting<br />
+--> Compare objects<br />
+--> Learn to use the concept of delegates (delegate methods)<br />
+--> Learn to generate events and handle events (event methods)<br />
+--> Learn to use Generics<br />
+--> Learn advanced concepts of lists with IEnumerable and IList<br />
+
+Note:<br />
+--> Not all of the above-mentioned contents were applied in the development of this console application.<br />
+--> This application does not have:<br />
+------> connections to databases (to be done soon as the course progresses).<br />
+
+Created and developed by: Jéssica Nepomuceno, [linkedin].
+<br />
+<br />
+# [Português] Nome do projeto:<br />
 --> Favorite Songs 2ª versão <br />
 
 O que é:<br />
