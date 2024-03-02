@@ -17,14 +17,12 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
         /// <summary>
         /// Function - Register a favorite song
         /// </summary>
-        public bool CreateFavoriteSong(List<Music> favoriteSongs)
+        public void CreateFavoriteSong(List<Music> favoriteSongs)
         {
-            bool concluded = false;
             bool repeatAgree = true;
-
             var favoriteSong = SetFavoriteSong();           
 
-            return SetAgree(repeatAgree, concluded, favoriteSongs, favoriteSong.Band.BandName(), favoriteSong.MusicName(), favoriteSong.MusicNote, (int)favoriteSong.Genre, favoriteSong.Band.Members.ToList());
+            SetAgree(repeatAgree, favoriteSongs, favoriteSong.Band.BandName(), favoriteSong.MusicName(), favoriteSong.MusicNote, (int)favoriteSong.Genre, favoriteSong.Band.Members.ToList());
         }
 
         /// <summary>
@@ -60,58 +58,71 @@ namespace ConsoleAppFavoriteSongsSecondVersion.CRUDContext
         /// <summary>
         /// Function - Update a favorite song
         /// </summary>
-        public bool UpdateFavoriteSong(List<Music> favoriteSongs)
+        public void UpdateFavoriteSong(List<Music> favoriteSongs)
         {
             bool repeatAgree = true;
-            bool concluded = false;
-
-            if (favoriteSongs.Any())
+            
+            try
             {
-                ListFavoriteSong(favoriteSongs);
-                var updateSong = ChoiceFavoriteSong(favoriteSongs, true);
-                ShowInformationInputSong(updateSong.Band.BandName(), updateSong.MusicName(), updateSong.MusicNote, (int)updateSong.Genre, updateSong.Band.Members.ToList());
-                concluded = SetAgree(repeatAgree, concluded, updateSong);
+                if (favoriteSongs.Any())
+                {
+                    ListFavoriteSong(favoriteSongs);
+                    var updateSong = ChoiceFavoriteSong(favoriteSongs, true);
+                    ShowInformationInputSong(updateSong.Band.BandName(), updateSong.MusicName(), updateSong.MusicNote, (int)updateSong.Genre, updateSong.Band.Members.ToList());
+                    SetAgree(repeatAgree, updateSong);
+                }
+                else
+                {
+                    Console.WriteLine("You dont have favorite songs registered.");
+                    Console.WriteLine("Please, return to menu and select the first option to register a song!");                   
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("Press Enter to Return to menu.");
+                                
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("You dont have favorite songs registered.");
-                Console.WriteLine("Please, return to menu and select the first option to register a song!");
-                concluded = true;
+                Console.WriteLine("");
+                Console.WriteLine($"{ex.Message}");
+
             }
 
-            Console.WriteLine("");
-            Console.WriteLine("Press Enter to Return to menu.");
-            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-
-            return concluded;
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { };
         }
 
         /// <summary>
         /// Function - Delete a favorite song
         /// </summary>
-        public bool DeleteFavoriteSong(List<Music> favoriteSongs)
+        public void DeleteFavoriteSong(List<Music> favoriteSongs)
         {
             bool repeatAgree = true;
-            bool concluded = false;
-            if (favoriteSongs.Any())
+            
+            try
             {
-                ListFavoriteSong(favoriteSongs);
-                var deletSong = ChoiceFavoriteSong(favoriteSongs, false);
-                ShowInformationInputSong(deletSong.Band.BandName(), deletSong.MusicName(), deletSong.MusicNote, (int)deletSong.Genre, deletSong.Band.Members.ToList());
-                concluded = SetAgree(repeatAgree, concluded, deletSong, favoriteSongs);
+                if (favoriteSongs.Any())
+                {
+                    ListFavoriteSong(favoriteSongs);
+                    var deletSong = ChoiceFavoriteSong(favoriteSongs, false);
+                    ShowInformationInputSong(deletSong.Band.BandName(), deletSong.MusicName(), deletSong.MusicNote, (int)deletSong.Genre, deletSong.Band.Members.ToList());
+                    SetAgree(repeatAgree, deletSong, favoriteSongs);
+                }
+                else
+                {
+                    Console.WriteLine("You dont have favorite songs registered.");
+                    Console.WriteLine("Please, return to menu and select the first option to register a song!");                    
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("Press Enter to Return to menu.");               
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("You dont have favorite songs registered.");
-                Console.WriteLine("Please, return to menu and select the first option to register a song!");
-                concluded = true;
+                Console.WriteLine("");
+                Console.WriteLine($"{ex.Message}");
             }
 
-            Console.WriteLine("");
-            Console.WriteLine("Press Enter to Return to menu.");
-            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-
-            return concluded;
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { };
         }
     }
 }

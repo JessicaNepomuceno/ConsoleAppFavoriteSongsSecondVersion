@@ -49,7 +49,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
             Console.WriteLine($"The members name: {string.Join(" / ", members.Select(x => x.MemberName()))}");
             Console.WriteLine("");
         }                
-        public bool SetAgree(bool repeatAgree, bool concluded, Music song)
+        public void SetAgree(bool repeatAgree, Music song)
         {
             while (repeatAgree)
             {
@@ -68,14 +68,12 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
                         song.Band.Members.Clear();
                         foreach (var item in changeSong.Band.Members)
                             song.Band.Members.Add(item);
-
-                        concluded = true;
+                        
                         repeatAgree = false;
                         Console.WriteLine("Your favorite song has been UPDATED! Returning to the menu...");
                         break;
                     case "N":
-                        Console.WriteLine("Your favorite song has not been UPDATED!");
-                        concluded = true;
+                        Console.WriteLine("Your favorite song has not been UPDATED!");                       
                         repeatAgree = false;
                         break;
                     default:
@@ -88,11 +86,9 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
                         Console.WriteLine("");
                         break;
                 }
-            }
-
-            return concluded;
+            }            
         }
-        public bool SetAgree(bool repeatAgree, bool concluded, Music song, List<Music> favoriteSongs)
+        public void SetAgree(bool repeatAgree, Music song, List<Music> favoriteSongs)
         {
             while (repeatAgree)
             {
@@ -102,14 +98,12 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
                 switch (agree)
                 {
                     case "Y":
-                        favoriteSongs.Remove(song);                        
-                        concluded = true;
+                        favoriteSongs.Remove(song);
                         repeatAgree = false;
                         Console.WriteLine("Your favorite song has been DELETED! Returning to the menu...");
                         break;
                     case "N":
                         Console.WriteLine("Your favorite song has not been DELETED!");
-                        concluded = true;
                         repeatAgree = false;
                         break;
                     default:
@@ -122,11 +116,9 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
                         Console.WriteLine("");
                         break;
                 }
-            }
-
-            return concluded;
+            }            
         }
-        public bool SetAgree(bool repeatAgree, bool concluded, List<Music> favoriteSongs, string nameArtistBand, string nameMusic, int musicNote, int genre, List<Members> members)
+        public void SetAgree(bool repeatAgree, List<Music> favoriteSongs, string nameArtistBand, string nameMusic, int musicNote, int genre, List<Members> members)
         {
             while (repeatAgree)
             {
@@ -138,15 +130,13 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
                     case "Y":
                         Console.WriteLine("");
                         Console.WriteLine("The information has been saved! Returning to the menu...");
-                        favoriteSongs.Add(new Music(nameMusic, nameArtistBand, members, genre, musicNote));
-                        concluded = true;
+                        favoriteSongs.Add(new Music(nameMusic, nameArtistBand, members, genre, musicNote));                        
                         repeatAgree = false;
 
                         break;
                     case "N":
                         Console.WriteLine("");
                         Console.WriteLine("The information has not been saved! Returning to the menu...");
-                        concluded = true;
                         repeatAgree = false;
 
                         break;
@@ -164,10 +154,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
 
                         break;
                 }
-
             }
-
-            return concluded;
         }
         public static Music SetFavoriteSong()
         {
@@ -211,6 +198,9 @@ namespace ConsoleAppFavoriteSongsSecondVersion.SharedContext
             Console.WriteLine("");
             Console.Write($"Type the favorite song number that you want to {(isUpdate ? "UPDATE" : "DELETE")}: ");
             var numberFavoriteSong = (int.TryParse(Console.ReadLine()!, out int num) ? num : 0);
+
+            if (!favoriteSongs.Select(x => x.NumIndex).Contains(numberFavoriteSong))
+                throw new Exception("This favorite song number does not exist");
 
             Console.WriteLine("");
             Console.WriteLine("This is the favorite song you entered:");

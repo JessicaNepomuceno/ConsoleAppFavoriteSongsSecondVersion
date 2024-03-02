@@ -28,7 +28,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion
                         Thread.Sleep(3000);
                         Console.Clear();
                         //ShowLogo();
-                        showMenu = crudContext.CreateFavoriteSong(favoriteSongs);
+                        crudContext.CreateFavoriteSong(favoriteSongs);
                         Thread.Sleep(4000);
                         Console.Clear();
                         break;
@@ -48,7 +48,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion
                         Thread.Sleep(3000);
                         Console.Clear();
                         //ShowLogo();
-                        showMenu = crudContext.UpdateFavoriteSong(favoriteSongs);
+                        crudContext.UpdateFavoriteSong(favoriteSongs);
                         Console.Clear();
                         break;
                     case "4":
@@ -56,7 +56,7 @@ namespace ConsoleAppFavoriteSongsSecondVersion
                         Thread.Sleep(3000);
                         Console.Clear();
                         //ShowLogo();
-                        showMenu = crudContext.DeleteFavoriteSong(favoriteSongs);
+                        crudContext.DeleteFavoriteSong(favoriteSongs);
                         Console.Clear();
                         break;
                     case "0":
